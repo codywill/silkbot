@@ -1,0 +1,11 @@
+{
+  "name": "silkbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "silkbot.js",
+  "author": "graedr",
+  "dependencies": {
+    "discord.io": "^2.5.2",
+    "winston": "^2.3.1"
+  }
+}
