@@ -162,8 +162,24 @@ function getProperties(obj) {
 }
 
 function friend(twitch=null, bnet=null, message=null, role="buddy") {
-  this.twitch = twitch;
-  this.bnet = bnet;
-  this.message = message;
-  this.role = role;
+  if(twitch == "null") {
+      this.twitch = null;
+  } else {
+    this.twitch = twitch;
+  }
+  if(bnet == "null") {
+      this.bnet = null;
+  } else {
+    this.bnet = bnet;
+  }
+  if(message == "null") {
+      this.message = null;
+  } else {
+    this.message = message;
+  }
+  if(role == "null") {
+      this.role = "buddy";
+  } else {
+    this.role = role;
+  }
 }

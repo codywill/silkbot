@@ -55,8 +55,3 @@ function cmdObj(channel, user, command, ...args) {
     this.command = command;
     this.args = args;
 }
-
-function doAction(cmdObj) {
-    var response = vocab.actions[cmdObj.command](cmdObj);
-    return new botMsg(cmdObj.channel, vocab.actions[cmdObj.command](cmdObj));
-}
