@@ -1,6 +1,5 @@
 const vocab = require('../vocabulary');
 
-/*// BACK UP FRIENDS LIST BEFORE ENABLING THESE TESTS
 describe("actions", function() {
    var friends = {
       "thisguy": {
@@ -24,9 +23,9 @@ describe("actions", function() {
        };
        expect(vocab.actions(obj, friends)).toBe("http://www.twitch.tv/thisguy");
        obj.user = "thatguy";
-       expect(vocab.actions(obj, friends)).toBe("/shrug");       
+       expect(vocab.actions(obj, friends)).toBe("¯\\\_(ツ)\_/¯");       
        obj.user = "random";
-       expect(vocab.actions(obj, friends)).toBe("I DON'T KNOW YOU");
+       expect(vocab.actions(obj, friends)).toBe("¯\\\_(ツ)\_/¯");
    });
    it("should return bnet ID of known friend, message if unknown", function() {
        var obj = {
@@ -36,15 +35,16 @@ describe("actions", function() {
        };
        expect(vocab.actions(obj, friends)).toBe(friends.thisguy.bnet);
        obj.user = "thatguy";
-       expect(vocab.actions(obj, friends)).toBe("/shrug");
+       expect(vocab.actions(obj, friends)).toBe("¯\\\_(ツ)\_/¯");
        obj.user = "random";
-       expect(vocab.actions(obj, friends)).toBe("I DON'T KNOW YOU");
+       expect(vocab.actions(obj, friends)).toBe("¯\\\_(ツ)\_/¯");
    });
    it("should return new friend message and add to list if friend", function() {
        var obj = {
            channel: "1234",
            user: "thisguy",
            command: "add",
+           file: "./spec/friendsTest.json",
            args: "newguy"
        };
        var expected = {
@@ -77,6 +77,7 @@ describe("actions", function() {
            channel: "1234",
            user: "thisguy",
            command: "del",
+           file: "./spec/friendsTest.json",
            args: "newguy"
        };
        var expected = {
@@ -103,6 +104,7 @@ describe("actions", function() {
            channel: "1234",
            user: "thisguy",
            command: "set",
+           file: "./spec/friendsTest.json",
            args: ["thatguy", "twitch", "thatguy"]
        };
        expect(vocab.actions(obj, friends)).toBe("thatguy's twitch ID set to 'thatguy'");
@@ -115,12 +117,13 @@ describe("actions", function() {
            channel: "1234",
            user: "thisguy",
            command: "get",
+           file: "friendsTest.json",
            args: ["thatguy", "twitch"]
        };
        expect(vocab.actions(obj, friends)).toBe("http://www.twitch.tv/thatguy");
    });
 });
-*/
+
 
 describe("addFriend", function() {
   it("should add a user to friends list", function() {
@@ -178,21 +181,20 @@ describe("delFriend", function() {
 /*
 describe("loadFriends", function() {
   it("should load friends object from json file", function() {
-    var file = require('../friends.json');
-    vocab.loadFriends(file);
-    var expected = vocab.getFriends();
+    var file = require('../spec/friendsTest.json');
+    var expected = vocab.loadFriends(file);
     expect(JSON.stringify(file)).toBe(JSON.stringify(expected));
   });
 });
 
 describe("storeFriends", function() {
   it("should store friends object as json file", function(){
-    var friends = vocab.getFriends();
-    vocab.storeFriends(friends);
+    var file = require('../spec/friendsTest.json');
+    var friends = vocab.loadFriends(file);
+    vocab.storeFriends(friends, file);
   });
 });
 */
-
 describe("getProperties", function() {
   it("should return array of object properties", function() {
     var obj = {

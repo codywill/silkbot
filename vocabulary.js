@@ -11,22 +11,23 @@ module.exports = {
 }
 
 function actions(cmdObj, friends) {
-  var cmd = cmdObj.command;
   var user = cmdObj.user;
+  var cmd = cmdObj.command;
+  var file = cmdObj.file;
   var args = cmdObj.args;
   if(cmd in friends) {
     return friends[cmd].message;
   }
   switch(cmd) {
     case 'twitch':
-      if (friends[user].twitch != null) {
+      if (friends[user] && friends[user].twitch != null) {
         return('http://www.twitch.tv/' + friends[user].twitch);
       } else {
         return("¯\\\_(ツ)\_/¯");
       }
       break;
     case 'bnet':
-      if(friends[user].bnet != null) {
+      if(friends[user] && friends[user].bnet != null) {
         return(friends[user].bnet);
       } else {
         return("¯\\\_(ツ)\_/¯");
@@ -49,7 +50,7 @@ function actions(cmdObj, friends) {
             target = args;
             addFriend(friends, target);
           }
-          storeFriends(friends);
+          storeFriends(friends, file);
           return(target + " is my newest friend :blue_heart:");
       } else {
         return("I DON'T KNOW YOU");
@@ -59,7 +60,7 @@ function actions(cmdObj, friends) {
       if(friends[user].role === "supervisor") {
         var target = args;
         delFriend(friends, target);
-        storeFriends(friends);
+        storeFriends(friends, file);
         return(target + " is dead to me :broken_heart:");
       } else {
         return("YOU'RE NOT MY SUPERVISOR");
@@ -88,7 +89,7 @@ function actions(cmdObj, friends) {
               return("do you know what you're doing?");
               break;
           }
-          storeFriends(friends);
+          storeFriends(friends, file);
         } else {
           return("that ain't my friend, buddy");
         }
@@ -133,8 +134,8 @@ function loadFriends(list, json) {
   return list;
 }
 
-function storeFriends(obj) {
-  fs.writeFile('./friends.json', JSON.stringify(obj), 'utf-8');
+function storeFriends(obj, file) {
+  fs.writeFile(file, JSON.stringify(obj), 'utf-8');
 }
 
 function addFriend(list, name, ...args) {
