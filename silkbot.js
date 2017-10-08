@@ -2,7 +2,7 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var vocab = require('./vocabulary');
-var friendsList = require('./friends.json');
+var friendsList = './friends.json';
 
 module.exports = {
     botMsg: botMsg,
@@ -46,7 +46,7 @@ function botMsg(to=null, message=null) {
 }
 
 function botRespond(cmdObj, actions) {
-    return new botMsg(cmdObj.channel, actions(cmdObj, vocab.loadFriends(friendsList)));
+    return new botMsg(cmdObj.channel, actions(cmdObj, vocab.loadFriends(require(friendsList))));
 }
 
 function cmdObj(channel, user, command, file, ...args) {

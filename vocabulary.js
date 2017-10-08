@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 
 module.exports = {
   addFriend: addFriend,
@@ -154,8 +155,10 @@ function loadFriends(json) {
   return list;
 }
 
-function storeFriends(obj, file) {
-  fs.writeFileSync(file, JSON.stringify(obj), 'utf-8');
+function storeFriends(friends, file) {
+  console.log(file);
+  
+  fs.writeFileSync(path.join(__dirname, file.toString()), JSON.stringify(friends), 'utf-8');
 }
 
 function addFriend(list, name, ...args) {
