@@ -15,7 +15,7 @@ function actions(cmdObj, friends) {
   if(cmd in friends) {
     return friends[cmd].message;
   }
-  const action = getAction(cmd);
+  var action = getAction(cmd);
   return action(cmdObj, friends);
 }
 
@@ -69,11 +69,15 @@ function actionDel(obj, friends) {
   const user = obj.user;
   const file = obj.file;
   const args = obj.args;
-  if(friends[user].role === "supervisor") {
+  if(friends[user] && friends[user].role === "supervisor") {
     const target = args;
-    delFriend(friends, target);
-    storeFriends(friends, file);
-    return(target + " is dead to me :broken_heart:");
+    if(target in friends) {
+      delFriend(friends, target);
+      storeFriends(friends, file);
+      return(target + " is dead to me :broken_heart:");
+    } else {
+      return(target + " means nothing to me");
+    }
   } else {
     return("YOU'RE NOT MY SUPERVISOR");
   }
