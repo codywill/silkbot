@@ -156,8 +156,6 @@ function loadFriends(json) {
 }
 
 function storeFriends(friends, file) {
-  console.log(file);
-  
   fs.writeFileSync(path.join(__dirname, file.toString()), JSON.stringify(friends), 'utf-8');
 }
 
