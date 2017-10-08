@@ -15,9 +15,14 @@ function actions(cmdObj, friends) {
   const cmd = cmdObj.command;
   if(cmd in friends) {
     return friends[cmd].message;
+  } else {
+    var action = getAction(cmd);
+    if(action) {
+      return action(cmdObj, friends);
+    } else {
+      return("what");
+    }
   }
-  var action = getAction(cmd);
-  return action(cmdObj, friends);
 }
 
 function getAction(cmd) {

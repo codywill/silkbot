@@ -3,6 +3,7 @@ var logger = require('winston');
 var auth = require('./auth.json');
 var vocab = require('./vocabulary');
 var friendsList = './friends.json';
+var friendsObj = require(friendsList);
 
 module.exports = {
     botMsg: botMsg,
@@ -46,7 +47,7 @@ function botMsg(to=null, message=null) {
 }
 
 function botRespond(cmdObj, actions) {
-    return new botMsg(cmdObj.channel, actions(cmdObj, vocab.loadFriends(require(friendsList))));
+    return new botMsg(cmdObj.channel, actions(cmdObj, vocab.loadFriends(friendsObj)));
 }
 
 function cmdObj(channel, user, command, file, ...args) {
